@@ -6,19 +6,19 @@ public class Battleship {
     static String player1 = "player1";
     static String player2 = "player2";
     static Scanner sc = new Scanner(System.in);
-
+    static int[][] arr1 = new int[10][10];
+    static int[][] arr2 = new int[10][10];
     public static void main(String[] args) {
         String exit;
-        int[][] arr1 = new int[10][10];
-        int[][] arr2 = new int[10][10];
+
         //System.out.println("Игрок 1 введите ваше имя:");
         //player1 = sc.next();
         //System.out.println("Игрок 2 введите ваше имя:");
         //player2 = sc.next();
         do {
             System.out.println("Для выхода из игры введите 'exit'");
-            field();
-            arr1 = fieldFilling(player1);
+            field(arr1);
+            arr1 = fieldFilling(player1, arr1);
             for (int i = 0; i < arr1.length; i++) {
                 for (int j = 0; j < arr1.length; j++) {
                     System.out.print(arr1[i][j]);
@@ -29,19 +29,22 @@ public class Battleship {
         } while (!exit.equalsIgnoreCase("exit"));
     }
 
-    static void field() {
+    static void field(int[][] arr) {
         System.out.println("   0  1  2  3  4  5  6  7  8  9");
         for (int i = 0; i < 10; i++) {
             System.out.print(i + " ");
             for (int j = 0; j < 10; j++) {
-                System.out.print(" \u20DE ");
+                if (arr[i][j] == 1) {
+                    System.out.print(" \u25A0 ");
+                }else {
+                    System.out.print(" \u20DE ");
+                }
             }
             System.out.println();
         }
     }
 
-    static int[][] fieldFilling(String name) {
-        int[][] arr = new int[10][10];
+    static int[][] fieldFilling(String name, int[][] arr) {
         int shipCoord1, shipCoord2;
         int position;
         int deck = 4;
@@ -65,6 +68,7 @@ public class Battleship {
                     }
                 }
                 deck--;
+                field(arr);
             } else {
                 System.out.println("Вы ввели неверные координаты. Повторите ввод.");
             }
