@@ -119,12 +119,12 @@ public class Battleship {
                             || arr[shipCoord1 + i - 1][shipCoord2] == 1) {
                         return false;
                     }
-                }else if (shipCoord1 + deck - 1 == 9 && shipCoord2 > 0 && shipCoord2 < 9) {
+                } else if (shipCoord1 + deck - 1 == 9 && shipCoord2 > 0 && shipCoord2 < 9) {
                     if (arr[shipCoord1 + i][shipCoord2 - 1] == 1
                             || arr[shipCoord1 + i][shipCoord2 + 1] == 1
                             || arr[shipCoord1 + i - 1][shipCoord2 - 1] == 1
                             || arr[shipCoord1 + i - 1][shipCoord2 + 1] == 1
-                            || arr[shipCoord1 + i - 1][shipCoord2] == 1 ){
+                            || arr[shipCoord1 + i - 1][shipCoord2] == 1) {
                         return false;
                     }
                 }
@@ -139,9 +139,9 @@ public class Battleship {
                             || arr[shipCoord1 + i + 1][shipCoord2] == 1) {
                         return false;
                     }*/
-                }
             }
-            return true;
         }
+        return true;
     }
 }
+
