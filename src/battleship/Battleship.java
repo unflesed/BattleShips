@@ -55,7 +55,7 @@ public class Battleship {
             System.out.println("1. Расположить вертикально.");
             System.out.println("2. Расположить горизонтально.");
             position = sc.nextInt();
-            if (check(arr, position, deck, shipCoord1, shipCoord2)) {
+            if (check(arr, position, deck, shipCoord2, shipCoord1)) {
                 arr[shipCoord2][shipCoord1] = 1;
                 for (int i = 0; i < deck; i++) {
                     if (position == 1) {
@@ -89,7 +89,7 @@ public class Battleship {
                             || arr[shipCoord1 + i + 1][shipCoord2] == 1) {
                         return false;
                     }
-                } else if (shipCoord1 > 0 && shipCoord2 == 0) {
+                } else if (shipCoord1 > 0 && shipCoord1 + deck < 9 && shipCoord2 == 0) {
                     if (arr[shipCoord1 + i][shipCoord2 + 1] == 1
                             || arr[shipCoord1 + i - 1][shipCoord2 + 1] == 1
                             || arr[shipCoord1 + i + 1][shipCoord2 + 1] == 1
@@ -104,7 +104,7 @@ public class Battleship {
                             || arr[shipCoord1 + i + 1][shipCoord2] == 1) {
                         return false;
                     }
-                } else if (shipCoord1 > 0 && shipCoord2 == 9) {
+                } else if (shipCoord1 > 0 && shipCoord1 + deck < 9 && shipCoord2 == 9) {
                     if (shipCoord1 + i + 1 > 9
                             || arr[shipCoord1 + i][shipCoord2 - 1] == 1
                             || arr[shipCoord1 + i - 1][shipCoord2 - 1] == 1
@@ -145,7 +145,7 @@ public class Battleship {
                             || arr[shipCoord1 + i + 1][shipCoord2] == 1) {
                         return false;
                     }
-                }else if(shipCoord1 + deck - 1 > 9){
+                }else if(shipCoord1 + deck - 1 > 9 || shipCoord2 > 9){
                     return false;
                 }
             }
