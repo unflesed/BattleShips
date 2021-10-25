@@ -55,9 +55,13 @@ public class Battleship {
             shipCoord1 = sc.nextInt();
             System.out.println("Координата у:");
             shipCoord2 = sc.nextInt();
-            System.out.println("1. Расположить вертикально.");
-            System.out.println("2. Расположить горизонтально.");
-            position = sc.nextInt();
+            if (deck != 1) {
+                System.out.println("1. Расположить вертикально.");
+                System.out.println("2. Расположить горизонтально.");
+                position = sc.nextInt();
+            }else {
+                position = 1;
+            }
             if (check(arr, position, deck, shipCoord2, shipCoord1)) {
                 arr[shipCoord2][shipCoord1] = 1;
                 for (int i = 0; i < deck; i++) {
