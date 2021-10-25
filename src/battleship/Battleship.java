@@ -56,12 +56,12 @@ public class Battleship {
             System.out.println("2. Расположить горизонтально.");
             position = sc.nextInt();
             if (check(arr, position, deck, shipCoord1, shipCoord2)) {
-                arr[shipCoord1][shipCoord2] = 1;
+                arr[shipCoord2][shipCoord1] = 1;
                 for (int i = 0; i < deck; i++) {
                     if (position == 1) {
-                        arr[shipCoord1 + i][shipCoord2] = 1;
+                        arr[shipCoord2 + i][shipCoord1] = 1;
                     } else {
-                        arr[shipCoord1][shipCoord2 + i] = 1;
+                        arr[shipCoord2][shipCoord1 + i] = 1;
                     }
                 }
                 deck--;
@@ -127,8 +127,14 @@ public class Battleship {
                             || arr[shipCoord1 + i - 1][shipCoord2] == 1) {
                         return false;
                     }
-                }
-                    /*if (shipCoord1 + i + 1 > 9
+                } else if(shipCoord1 + deck - 1 == 9 && shipCoord2 == 9){
+                    if (arr[shipCoord1 + i][shipCoord2 - 1] == 1
+                            || arr[shipCoord1 + i - 1][shipCoord2 - 1] == 1
+                            || arr[shipCoord1 + i - 1][shipCoord2] == 1) {
+                        return false;
+                    }
+                }else if (shipCoord1 > 0 && shipCoord1 < 9 && shipCoord2 < 9 && shipCoord2 > 0) {
+                    if (shipCoord1 + i + 1 > 9
                             || arr[shipCoord1 + i][shipCoord2 - 1] == 1
                             || arr[shipCoord1 + i][shipCoord2 + 1] == 1
                             || arr[shipCoord1 + i - 1][shipCoord2 - 1] == 1
@@ -138,7 +144,10 @@ public class Battleship {
                             || arr[shipCoord1 + i - 1][shipCoord2] == 1
                             || arr[shipCoord1 + i + 1][shipCoord2] == 1) {
                         return false;
-                    }*/
+                    }
+                }else if(shipCoord1 + deck - 1 > 9){
+                    return false;
+                }
             }
         }
         return true;
