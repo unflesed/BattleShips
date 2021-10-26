@@ -43,7 +43,7 @@ public class Battleship {
             System.out.println();
         }
     }
-
+    //метод заполнения игрового поля кораблями
     static int[][] fieldFilling(String name, int[][] arr) {
         int shipCoord1, shipCoord2;
         int position;
@@ -79,8 +79,9 @@ public class Battleship {
         } while (deck != 0);
         return arr;
     }
-
+    //проверка корректности ввода координат кораблей
     static boolean check(int[][] arr, int position, int deck, int shipCoord1, int shipCoord2) {
+        //для вертикальных
         if (position == 1) {
             for (int i = 0; i < deck; i++) {
                 if (shipCoord1 == 0 && shipCoord2 == 0) {
@@ -157,6 +158,83 @@ public class Battleship {
                     return false;
                 }
             }
+        //для горизонтальных
+        }else if (position == 2) {
+            for (int i = 0; i < deck; i++) {
+                if (shipCoord1 == 0 && shipCoord2 == 0) {
+                    if (arr[shipCoord1][shipCoord2 + i + 1] == 1
+                            || arr[shipCoord1 + 1][shipCoord2 + i + 1] == 1
+                            || arr[shipCoord1 + 1][shipCoord2 + i] == 1) {
+                        return false;
+                    }
+                } else if (shipCoord1 == 0 && shipCoord2 + deck - 1 < 9 && shipCoord2 > 0) {
+                    if (arr[shipCoord1][shipCoord2 + i - 1] == 1
+                            || arr[shipCoord1][shipCoord2 + i + 1] == 1
+                            || arr[shipCoord1 + 1][shipCoord2 + i - 1] == 1
+                            || arr[shipCoord1 + 1][shipCoord2 + i + 1] == 1
+                            || arr[shipCoord1 + 1][shipCoord2 + i] == 1) {
+                        return false;
+                    }
+                } else if (shipCoord1 > 0 && shipCoord1 < 9 && shipCoord2 == 0) {
+                    if (arr[shipCoord1][shipCoord2 + i + 1] == 1
+                            || arr[shipCoord1 - 1][shipCoord2 + i + 1] == 1
+                            || arr[shipCoord1 + 1][shipCoord2 + i + 1] == 1
+                            || arr[shipCoord1 - 1][shipCoord2 + i] == 1
+                            || arr[shipCoord1 + 1][shipCoord2 + i] == 1) {
+                        return false;
+                    }
+                } else if (shipCoord1 == 0 && shipCoord2 + deck - 1 == 9) {
+                    if (arr[shipCoord1][shipCoord2 + i - 1] == 1
+                            || arr[shipCoord1 + 1][shipCoord2 + i - 1] == 1
+                            || arr[shipCoord1 + 1][shipCoord2 + i] == 1) {
+                        return false;
+                    }
+                } else if (shipCoord1 > 0 && shipCoord1 < 9 && shipCoord2 + deck - 1 == 9) {
+                    if (arr[shipCoord1][shipCoord2 + i - 1] == 1
+                            || arr[shipCoord1 - 1][shipCoord2 + i - 1] == 1
+                            || arr[shipCoord1 + 1][shipCoord2 + i - 1] == 1
+                            || arr[shipCoord1 - 1][shipCoord2 + i] == 1
+                            || arr[shipCoord1 + 1][shipCoord2 + i] == 1) {
+                        return false;
+                    }
+                } else if (shipCoord1 == 9 && shipCoord2 == 0) {
+                    if (arr[shipCoord1][shipCoord2 + i + 1] == 1
+                            || arr[shipCoord1 - 1][shipCoord2 + i + 1] == 1
+                            || arr[shipCoord1 - 1][shipCoord2 + i] == 1) {
+                        return false;
+                    }
+                } else if (shipCoord1 == 9 && shipCoord2 > 0 && shipCoord2 + deck - 1 < 9) {
+                    if (arr[shipCoord1][shipCoord2 + i - 1] == 1
+                            || arr[shipCoord1][shipCoord2 + i + 1] == 1
+                            || arr[shipCoord1 - 1][shipCoord2 + i - 1] == 1
+                            || arr[shipCoord1 - 1][shipCoord2 + i + 1] == 1
+                            || arr[shipCoord1 - 1][shipCoord2 + i] == 1) {
+                        return false;
+                    }
+                } else if(shipCoord1 == 9 && shipCoord2 + deck - 1 == 9){
+                    if (arr[shipCoord1][shipCoord2 + i - 1] == 1
+                            || arr[shipCoord1 - 1][shipCoord2 + i - 1] == 1
+                            || arr[shipCoord1 - 1][shipCoord2 + i] == 1) {
+                        return false;
+                    }
+                }else if (shipCoord1 > 0 && shipCoord1 < 9 && shipCoord2 < 9 && shipCoord2 > 0) {
+                    if (shipCoord2 + i + 1 > 9
+                            || arr[shipCoord1][shipCoord2 + i - 1] == 1
+                            || arr[shipCoord1][shipCoord2 + i + 1] == 1
+                            || arr[shipCoord1 - 1][shipCoord2 + i - 1] == 1
+                            || arr[shipCoord1 - 1][shipCoord2 + i + 1] == 1
+                            || arr[shipCoord1 + 1][shipCoord2 + i - 1] == 1
+                            || arr[shipCoord1 + 1][shipCoord2 + i + 1] == 1
+                            || arr[shipCoord1 - 1][shipCoord2 + i] == 1
+                            || arr[shipCoord1 + 1][shipCoord2 + i] == 1) {
+                        return false;
+                    }
+                }else if(shipCoord1 > 9 || shipCoord2 + deck - 1 > 9){
+                    return false;
+                }
+            }
+        }else if (arr[shipCoord1][shipCoord2] == 1) {
+            return false;
         }
         return true;
     }
