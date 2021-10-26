@@ -19,12 +19,6 @@ public class Battleship {
             System.out.println("Для выхода из игры введите 'exit'");
             field(arr1);
             arr1 = fieldFilling(player1, arr1);
-            for (int i = 0; i < arr1.length; i++) {
-                for (int j = 0; j < arr1.length; j++) {
-                    System.out.print(arr1[i][j]);
-                }
-                System.out.println();
-            }
             exit = sc.next();
         } while (!exit.equalsIgnoreCase("exit"));
     }
@@ -50,32 +44,35 @@ public class Battleship {
         int deck = 4;
         System.out.println(name + " вводит координаты кораблей");
         do {
-            System.out.println(deck + "-палубный корабль:");
-            System.out.println("Координата х:");
-            shipCoord1 = sc.nextInt();
-            System.out.println("Координата у:");
-            shipCoord2 = sc.nextInt();
-            if (deck != 1) {
-                System.out.println("1. Расположить вертикально.");
-                System.out.println("2. Расположить горизонтально.");
-                position = sc.nextInt();
-            }else {
-                position = 1;
-            }
-            if (check(arr, position, deck, shipCoord2, shipCoord1)) {
-                arr[shipCoord2][shipCoord1] = 1;
-                for (int i = 0; i < deck; i++) {
-                    if (position == 1) {
-                        arr[shipCoord2 + i][shipCoord1] = 1;
-                    } else {
-                        arr[shipCoord2][shipCoord1 + i] = 1;
-                    }
+            for (int i = 0; i < 5 - deck; i++){
+                System.out.println(deck + "-палубный корабль. Осталось разместить " + (5 - deck - i));
+                System.out.println("Координата х:");
+                shipCoord1 = sc.nextInt();
+                System.out.println("Координата у:");
+                shipCoord2 = sc.nextInt();
+                if (deck != 1) {
+                    System.out.println("1. Расположить вертикально.");
+                    System.out.println("2. Расположить горизонтально.");
+                    position = sc.nextInt();
+                }else {
+                    position = 1;
                 }
-                deck--;
-                field(arr);
-            } else {
-                System.out.println("Вы ввели неверные координаты. Повторите ввод.");
+                if (check(arr, position, deck, shipCoord2, shipCoord1)) {
+                    arr[shipCoord2][shipCoord1] = 1;
+                    for (int j = 0; j < deck; j++) {
+                        if (position == 1) {
+                            arr[shipCoord2 + j][shipCoord1] = 1;
+                        } else {
+                            arr[shipCoord2][shipCoord1 + j] = 1;
+                        }
+                    }
+                    field(arr);
+                } else {
+                    System.out.println("Вы ввели неверные координаты. Повторите ввод.");
+                    i--;
+                }
             }
+            deck--;
         } while (deck != 0);
         return arr;
     }
