@@ -1,5 +1,3 @@
-package battleship;
-
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -17,16 +15,15 @@ public class Battleship {
         //player1 = sc.next();
         //System.out.println("Игрок 2 введите ваше имя:");
         //player2 = sc.next();
+        clearScreen();
         arr1 = fieldFilling(player1, arr1);
         clearScreen();
         arr2 = fieldFilling(player2, arr2);
         clearScreen();
         do {
             arrShots1 = shot(player1, arr2, arrShots1);
-            clearScreen();
             if (exit) break;
             arrShots2 = shot(player2, arr1, arrShots2);
-            clearScreen();
         }while(!exit);
     }
     //прорисовка игрового поля
@@ -36,13 +33,13 @@ public class Battleship {
             System.out.print(i + " ");
             for (int j = 0; j < 10; j++) {
                 if (arr[i][j] == 1) {
-                    System.out.print(" \u25A0 ");
+                    System.out.print(" U ");
                 }else if (arr[i][j] == 0){
-                    System.out.print(" \u20DE ");
+                    System.out.print(" _ ");
                 }else if (arr[i][j] == 2) {
-                    System.out.print(" \u2716 ");
+                    System.out.print(" X ");
                 }else if (arr[i][j] == 3) {
-                    System.out.print(" \u25EF ");
+                    System.out.print(" O ");
                 }
             }
             System.out.println();
@@ -63,7 +60,7 @@ public class Battleship {
                 shot = false;
                 arrShots[shotCoord2][shotCoord1] = 3;   //промах
                 field(arrShots);
-                System.out.println("Промах! \nХод переход к следующему игроку!");
+                clearScreen();
             }else{
                 arrShots[shotCoord2][shotCoord1] = 2;   //попадание
                 if (player1.equals(name)) {
@@ -72,6 +69,7 @@ public class Battleship {
                     arr1[shotCoord2][shotCoord1] = 2;
                 }
                 arrShips[shotCoord2][shotCoord1] = 2;
+                clearScreen();
                 field(arrShots);
                 System.out.println(name + " попал!");
                 if (isVictory(name, arrShips)) {
@@ -129,6 +127,7 @@ public class Battleship {
                             arr[shipCoord2][shipCoord1 + j] = 1;
                         }
                     }
+                    clearScreen();
                     field(arr);
                 } else {
                     System.out.println("Вы ввели неверные координаты. Повторите ввод.");
@@ -303,7 +302,7 @@ public class Battleship {
         try {
             new ProcessBuilder("cmd","/c","cls").inheritIO().start().waitFor();
         } catch (InterruptedException | IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 }
