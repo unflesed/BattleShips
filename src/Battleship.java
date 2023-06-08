@@ -10,6 +10,7 @@ public class Battleship {
     static int[][] arrShots1 = new int[10][10];
     static int[][] arrShots2 = new int[10][10];
     static boolean exit = false;
+
     //внутренний класс для работы с игровым полем (прорисовка, заполнение кораблями, проверки)
     class Field{
         //прорисовка игрового поля
@@ -31,13 +32,16 @@ public class Battleship {
                 System.out.println();
             }
         }
+
         //метод заполнения игрового поля кораблями
         static int[][] fieldFilling(String name, int[][] arr) {
             int shipCoord1, shipCoord2;
             int position;
             int deck = 4;
+
             fieldDraw(arr);
             System.out.println(name + " вводит координаты кораблей");
+
             do {
                 for (int i = 0; i < 5 - deck; i++){
                     System.out.println(deck + "-палубный корабль. Осталось разместить " + (5 - deck - i));
@@ -70,8 +74,10 @@ public class Battleship {
                 }
                 deck--;
             } while (deck != 0);
+
             return arr;
         }
+
         //проверка корректности ввода координат кораблей
         static boolean check(int[][] arr, int position, int deck, int shipCoord1, int shipCoord2) {
             //для вертикальных
@@ -236,6 +242,7 @@ public class Battleship {
     public static void main(String[] args) {
         System.out.println("Игрок 1 введите ваше имя:");
         player1 = sc.next();
+
         System.out.println("Игрок 2 введите ваше имя:");
         player2 = sc.next();
 
@@ -244,6 +251,7 @@ public class Battleship {
         clearScreen();
         arr2 = Field.fieldFilling(player2, arr2);
         clearScreen();
+
         do {
             arrShots1 = shot(player1, arr2, arrShots1);
             if (exit) break;
@@ -255,11 +263,14 @@ public class Battleship {
     static int[][] shot(String name, int[][] arrShips, int[][] arrShots){
         int shotCoord1, shotCoord2;
         boolean shot = true;
+
         Field.fieldDraw(arrShots);
         System.out.println(name + " осуществляет выстрел.");
+
         do {
             shotCoord1 = checkShot("x");
             shotCoord2 = checkShot("y");
+
             if (arrShips[shotCoord2][shotCoord1] != 1) {
                 shot = false;
                 arrShots[shotCoord2][shotCoord1] = 3;   //промах
@@ -267,26 +278,31 @@ public class Battleship {
                 clearScreen();
             } else {
                 arrShots[shotCoord2][shotCoord1] = 2;   //попадание
+
                 if (player1.equals(name)) {
                     arr2[shotCoord2][shotCoord1] = 2;
                 }else {
                     arr1[shotCoord2][shotCoord1] = 2;
                 }
+
                 arrShips[shotCoord2][shotCoord1] = 2;
                 clearScreen();
                 Field.fieldDraw(arrShots);
                 System.out.println(name + " попал!");
+
                 if (isVictory(name, arrShips)) {
                     shot = false;
                 }
             }
         }while(shot);
+
         return arrShots;
     }
     static int checkShot(String nameOfCoord){
         int coord;
+
         do {
-            System.out.println("Координата "+ nameOfCoord +":");
+            System.out.println("Координата " + nameOfCoord + ":");
             coord = sc.nextInt();
             if (coord >= 0 && coord <= 9) {
                 break;
@@ -299,6 +315,7 @@ public class Battleship {
     //проверка на победу
     static boolean isVictory(String name, int[][] arrShips){
         boolean check = true;
+
         for (int i = 0; i < arrShips.length; i++) {
             for (int j = 0; j < arrShips.length; j++) {
                 if (arrShips[i][j] == 1) {
@@ -306,14 +323,17 @@ public class Battleship {
                     break;
                 }
             }
+
             if(!check) break;
         }
+
         if (check) {
             System.out.println("Игрок " + name + " ПОБЕДИЛ!!!");
             exit = true;
         }
         return check;
     }
+
     //очистка экрана (работает в командной строке)
     static void clearScreen(){
         try {
